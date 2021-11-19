@@ -1,6 +1,10 @@
+import {getLocoList} from "./utils/getLocoList.js";
+import {getMapData} from "./utils/getMapData.js";
+
 $(document).ready(function(){
-  locoList = getLocoList();
-  savedMaps = getPreparedMaps();
+  let locoList = getLocoList();
+  let savedMaps = getPreparedMaps();
+
   $("#loco-form").on("submit", function (e) {
     e.preventDefault();
     data = $(this).serializeArray();
@@ -127,7 +131,7 @@ $(document).ready(function(){
 });
 
 function getPreparedMaps() {
-    maps = getMapData();
+    let maps = getMapData();
     if (maps != null){
         maps.unshift({
             mname: "Default",

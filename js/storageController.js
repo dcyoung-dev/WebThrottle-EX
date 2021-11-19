@@ -7,6 +7,13 @@
     Manages the setting storage capabilities
 */
 
+import {loadmaps} from "./utils/loadmaps.js";
+import {getMapData} from "./utils/getMapData.js";
+import {loadButtons} from "./utils/loadButtons.js";
+import {fnMasterData} from "./utils/fnMaster.js";
+import {getUserPreferences, importPrefData} from "./utils/preferences.js";
+import {getLocoList} from "./utils/getLocoList.js";
+
 $(document).ready(function(){
   // This is displays message about Local storage Support of the Local browser
   if (typeof Storage !== "undefined") {
@@ -185,31 +192,6 @@ $(document).ready(function(){
 
 });
 
-// Load all maps to select box
-function loadmaps(){
-  $("#select-map").empty();
-  $("#select-map").append($("<option />").val("default").text("Default"));
-  $.each(getMapData(), function() {
-    $("#select-map").append($("<option />").val(this.mname).text(this.mname));
-  });
-}
-
-// Load button layout of selected Map
-function loadButtons(data){
-  $("#fn-wrapper").empty();
-  $.each(data.fnData, function(key, value){
-      isPressed = value[0] != 0 ? true : false;
-      btnType = value[1] != 0 ? "press" : "toggle";
-      if(value[3]==1){
-          $("#fn-wrapper").append(
-          "<div class='fn-button form-group field-button-fn'> <button class='btn-default btn fn-btn "+btnType+"' data-type='"+
-          btnType+"' aria-pressed='"+isPressed+"' name='"+key+"'  id='"+key+"'>"+
-          value[2]+"</button>"
-          +"</div>");
-      }
-  });
-}
-
 // Show the Custom Map fields inside Custom map window while adding and editing a Map.
 function showBtnConfig(data){
   
@@ -368,15 +350,6 @@ function deleteFuncData(name){
   }
 }
 
-// Returns the Map data of ExWebThrottle
-function getMapData(){
-  if (typeof Storage !== "undefined") {
-    return JSON.parse(window.localStorage.getItem("mapData"));
-  } else {
-    return [];
-  }
-}
-
 // Returns boolen if the given Map exists in local storage
 function ifExists(name){
   data = JSON.parse(window.localStorage.getItem('mapData'));
@@ -468,16 +441,7 @@ function ifLocoExists(name) {
   return found;
 }
 
- // Returns the AppData of ExWebThrottle
-function getLocoList(){
-    if (typeof Storage !== "undefined") {
-      return JSON.parse(window.localStorage.getItem("cabList"));
-    }else{
-      return [];
-    }
-}
-
-//Download the Locomotives List data
+ //Download the Locomotives List data
 function downloadCabData(){
   data = JSON.stringify(getLocoList());
   const a = document.createElement("a");
@@ -499,52 +463,6 @@ function getStoredLocoData(name) {
     });
   } else {
     return null;
-  }
-}
-
-/********************************************/
-/**************  Preferences  ***************/
-/********************************************/
-
-// Get a given user preference
-function getPreference(pref){
-  if (window.localStorage.getItem("userpref") != null) {
-    curpref = JSON.parse(window.localStorage.getItem("userpref"));
-    return curpref[pref];
-  } else {
-    return null;
-  }
-}
-
-// Set a given user preference
-function setPreference(pref, val){
-  if (window.localStorage.getItem("userpref") != null){
-    curpref = JSON.parse(window.localStorage.getItem("userpref"));
-  }else{
-    curpref = {};
-  }
-  curpref[pref] = val;
-  setUserPreferences(curpref);
-}
-
-// Store user preferences in local storage
-function setUserPreferences(pref){
-  if (typeof(Storage) !== "undefined") {  
-    window.localStorage.setItem("userpref", JSON.stringify(pref));  
-  }
-}
-
-function getUserPreferences() {
-  if (typeof Storage !== "undefined") {
-      return JSON.parse(window.localStorage.getItem("userpref"));
-  }else{
-    return [];
-  }
-}
-
-function importPrefData(data) {
-  if (data) {
-    window.localStorage.setItem("userpref", JSON.stringify(data));
   }
 }
 

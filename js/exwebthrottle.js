@@ -19,6 +19,15 @@
     This is part of the DCC++ EX Project for model railroading and more.
 	For more information, see us at dcc-ex.com.
 */
+import {loadmaps} from "./utils/loadmaps.js";
+import {loadButtons} from "./utils/loadButtons.js";
+import {fnMasterData} from "./utils/fnMaster.js";
+import {getPreference} from "./utils/preferences.js";
+import {getLocoList} from "./utils/getLocoList.js";
+import {getMapData} from "./utils/getMapData.js";
+import "./jquery-3.2.1.min.js"
+import "./jquery-ui.min.js"
+
 window.cv=0;
 window.speed=0;
 window.direction=1;
@@ -68,32 +77,6 @@ let outputStream;
 let pressed = false;
 
 
-// Enables and disables ui elements
-
-function uiDisable (status) {
-    /*document.getElementById('ex-locoid').disabled = status
-    document.getElementById('power-switch').disabled = status
-    document.getElementById('button-sendCmd').disabled = status
-    document.getElementById('dir-f').disabled = status
-    document.getElementById('dir-S').disabled = status*/
-    //document.getElementById('dir-b').disabled = status
-    $("#ex-locoid").prop('disabled', status)
-    $("#power-switch").prop('disabled', status)
-    $("#button-sendCmd").prop('disabled', status)
-    $("#dir-f").prop('disabled', status)
-    $("#dir-S").prop('disabled', status)
-    $("#dir-b").prop('disabled', status)
-    if (status){
-        //$("#throttle").roundSlider("disable");
-        //toggleThrottleState(false)
-        $("#button-getloco").trigger("click");
-    } else {
-        //$("#throttle").roundSlider("enable");
-        //toggleThrottleState(true)
-        //$("#button-getloco").trigger("click");
-    }
-}
-
 // Returns given function current value (0-disable/1-enable)
 function getFunCurrentVal(fun){
     return window.functions[fun];
@@ -141,7 +124,7 @@ function toggleKnobState(ele, state) {
     }
 }
 function loadMapData(map){
-    data = [];
+    let data = [];
     if (map == "Default") {
       data = { mname: "Default", fnData: fnMasterData };
     } else {
@@ -170,7 +153,7 @@ function loadMapData(map){
           '<div class="column-2">Visible</div>' +
         '</div>'
     );
-    container = $('<div class="maps-content"></div>').appendTo("#mapping-panel");
+    let container = $('<div class="maps-content"></div>').appendTo("#mapping-panel");
     $.each(data.fnData, function (key, value) {
       container.append(
         '<div class="row settings-group" id="'+key+'">' +
@@ -184,7 +167,8 @@ function loadMapData(map){
 
 }
 function loadLocomotives(){
-    locos = getLocoList();
+  let locos;
+  locos = getLocoList();
     $("#locomotives-panel").empty();
     $.each(locos, function (key, value) {
       $("#locomotives-panel").append(
@@ -221,7 +205,7 @@ function loadLocomotives(){
 function setThrottleScreenUI() {
     loadmaps();
     loadButtons({ mname: "default", fnData: fnMasterData });
-    controller = getPreference("scontroller");
+    const controller = getPreference("scontroller");
     $("#throttle-selector").val(controller).trigger("change");
     setspeedControllerType(controller);
 
@@ -243,7 +227,7 @@ function setThrottleScreenUI() {
     if (getPreference("theme") == null) {
         setPreference("theme", "simple");
     }else{
-        theme = getPreference("theme");
+        const theme = getPreference("theme");
         $("#theme-selector").val(theme).trigger("change");
         if (theme != "simple") {
             $("link[title*='theme']").remove();
@@ -298,10 +282,10 @@ function toggleThrottleState(state){
  * This function will
     1. Send Speed command
     2. Set speed value of all the available sliders/controllers
-    3. Set respctive speed number 
+    3. Set respective speed number
 ************************************************************/
 function setSpeedofControllers(){
-    spd = getSpeed();
+    let spd = getSpeed();
     
     if(!isStopped){
         writeToStream("t 01 " + getCV() + " " + spd + " " + getDirection());
@@ -316,15 +300,17 @@ function setSpeedofControllers(){
 
     // Knob
     $("#knob-value").html(spd);
+
+  let knob = $(".rotarySwitch")
     knob.val(spd).change();
 }
 
 // This function will generate commands for each type of function
 function generateFnCommand(clickedBtn){
     
-       func = clickedBtn.attr('name'); // Gives function name (F1, F2, .... F28)
-       eventType = clickedBtn.data("type"); // Gives type of button (Press/Hold or Toggle)
-       btnPressed = clickedBtn.attr("aria-pressed");
+       let func = clickedBtn.attr('name'); // Gives function name (F1, F2, .... F28)
+       let eventType = clickedBtn.data("type"); // Gives type of button (Press/Hold or Toggle)
+       let btnPressed = clickedBtn.attr("aria-pressed");
        //console.log("Function Name=>"+func+" , Button Type=>"+eventType+" , Button Pressed=>"+btnStatus);
     
        switch(func){
@@ -438,14 +424,14 @@ $(document).ready(function(){
   // Load function map, buttons throttle etc
   setThrottleScreenUI();
   $("#throttle-selector").on("change", function (e) {
-    selectedval = $(this).val();
+    let selectedval = $(this).val();
     console.log(selectedval);
     setPreference("scontroller", selectedval);
     setspeedControllerType(selectedval);
   });
 
   $("#theme-selector").on("change", function (e) {
-    selectedval = $(this).val();
+    let selectedval = $(this).val();
     console.log(selectedval);
     setPreference("theme", selectedval);
     $("link[title*='theme']").remove();
@@ -470,9 +456,12 @@ $(document).ready(function(){
 
   // Aquire loco of given CV
   $("#button-getloco").on("click", function () {
+    let acButton;
     acButton = $(this);
+    let isAcquired;
     isAcquired = $(this).data("acquired");
     // Parse int only returns number if the string is starting with Number
+    let locoid_input;
     locoid_input = parseInt($("#ex-locoid").val());
 
     if (locoid_input != 0) {
@@ -483,6 +472,7 @@ $(document).ready(function(){
         acButton.html('<span class="icon-cross"></span>');
         toggleThrottleState(true);
       } else {
+        let currentCV;
         currentCV = getCV();
         $("#ex-locoid").val(0);
         setCV(0);
@@ -496,7 +486,7 @@ $(document).ready(function(){
 
   // Switch ON/OFF power of the Command station
   $("#power-switch").on("click", function () {
-    pb = $(this).is(":checked");
+    let pb = $(this).is(":checked");
 
     if (pb == true) {
       writeToStream("1");
@@ -521,7 +511,7 @@ $(document).ready(function(){
   });
 
   /////////////////////////////////////////*/
-  knob = $(".rotarySwitch").rotaryswitch({
+  let knob = $(".rotarySwitch").rotaryswitch({
     minimum: 0,
     maximum: 126,
     step: 2,
@@ -533,8 +523,8 @@ $(document).ready(function(){
   });
   toggleKnobState($("#knobthrottle"), false);
   knob.on("change", function () {
-    oldValue = getSpeed();
-    kval = knob.val();
+    let oldValue = getSpeed();
+    let kval = knob.val();
     $("#knob-value").html(kval);
     setSpeed(kval);
     // Below condition is to avoid infinite loop
@@ -551,7 +541,7 @@ $(document).ready(function(){
 
   /////////////////////////////////////////////
   // Speed (round) Slider allows user to change the speed of the locomotive
-  Tht = $("#circular-throttle").roundSlider({
+  $("#circular-throttle").roundSlider({
     width: 20,
     radius: 116,
     value: speed,
@@ -580,8 +570,8 @@ $(document).ready(function(){
   // Allows user to change the direction of the loco and STOP.
   $(".dir-btn").on("click", function () {
     if (getCV() != 0){
-      current = $(this);
-      dir = current.attr("aria-label");
+      let current = $(this);
+      let dir = current.attr("aria-label");
       $(".dir-btn").removeClass("selected");
       current.addClass("selected", 200);
       console.log(dir);
@@ -620,7 +610,7 @@ $(document).ready(function(){
   $("#emergency-stop").on("click", function () {
       if (getCV() != 0){
         isStopped = true;
-        dir = getDirection();
+        let dir = getDirection();
         setSpeed(0);
         setSpeedofControllers();
         writeToStream("t 01 " + getCV() + " -1 " + dir);
@@ -715,8 +705,8 @@ $(document).ready(function(){
   $(document)
     .on("mousedown", ".fn-btn", function () {
       console.log($(this).val);
-      clickedBtn = $(this);
-      btnType = clickedBtn.data("type");
+      let clickedBtn = $(this);
+      let btnType = clickedBtn.data("type");
       if (btnType == "press") {
         timer = setInterval(function () {
           // MOMENTARY HOLD ON
@@ -728,9 +718,9 @@ $(document).ready(function(){
     })
     .on("mouseup mouserelease", ".fn-btn", function () {
       clearInterval(timer);
-      clickedBtn = $(this);
-      btnType = clickedBtn.data("type");
-      btnState = clickedBtn.attr("aria-pressed");
+      let clickedBtn = $(this);
+      let btnType = clickedBtn.data("type");
+      let btnState = clickedBtn.attr("aria-pressed");
       if (btnType == "press") {
         // MOMENTARY HOLD OFF
         clickedBtn.attr("aria-pressed", "false");
@@ -753,7 +743,7 @@ $(document).ready(function(){
 
   // Hide/Show the Debug console
   $("#console-toggle").on("click", function () {
-    pb = $(this).is(":checked");
+    let pb = $(this).is(":checked");
     if (pb == true) {
       $("#debug-console").show();
       setPreference("dbugConsole", true);
@@ -765,7 +755,7 @@ $(document).ready(function(){
 
   // Send command written in console
   $("#button-sendCmd").on("click", function () {
-    cmd = $("#cmd-direct").val();
+    let cmd = $("#cmd-direct").val();
     writeToStream(cmd);
     document.getElementById("cmd-direct").value = "";
   });
@@ -777,7 +767,7 @@ $(document).ready(function(){
 
   // Function to toggle fullScreen viceversa
   $("#fs-toggle").on("click", function () {
-    st = $(this).attr("state");
+    let st = $(this).attr("state");
     var elem = document.documentElement;
     if (st == "ws") {
       $(this).attr("state", "fs");
@@ -883,7 +873,7 @@ $(document).ready(function(){
 
   // This allows user to delete currently selected Map
   $(document).on("click", "#delete-map", function () {
-    selectedval = $("#cur-map-val").attr("cur-map");
+    let selectedval = $("#cur-map-val").attr("cur-map");
     if (selectedval != "Default") {
       deleteFuncData(selectedval);
       loadmaps();
@@ -896,7 +886,7 @@ $(document).ready(function(){
   });
 
   $(document).on("click", ".edit-cur-loco", function () {   
-    cabdata = getStoredLocoData($(this).attr("data-loco"));
+    let cabdata = getStoredLocoData($(this).attr("data-loco"));
     $("#loco-form")[0].reset();
     $("#loco-form-content").css("display", "inline-block");
     $(".add-loco-form .add-loco-head").html("Edit Locomotive");
@@ -915,7 +905,7 @@ $(document).ready(function(){
 });
 
 function setFunctionMaps(){
-    maps = getMapData();
+    let maps = getMapData();
     if (maps != null) {
         maps.unshift({
         mname: "Default",
@@ -942,10 +932,10 @@ function hideSettings(){
 }
 
 function credits() {
-    authors = ["Fred Decker","Mani Kumar","Matt"]
+    let authors = ["Fred Decker","Mani Kumar","Matt"]
     displayLog("Credits:")
     console.log("Credits:")
-    for (i=0; i<authors.length; i++) {
+    for (let i=0; i<authors.length; i++) {
         displayLog(authors[i])
         console.log(authors[i])
     }

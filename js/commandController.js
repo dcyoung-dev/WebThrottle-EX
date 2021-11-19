@@ -7,6 +7,10 @@
     Open a serial port and create a stream to read and write data
     While there is data, we read the results in loop function
 */
+import {uiDisable} from "./utils/ui-disable.js";
+import {writeToStream} from "./utils/writeToStream";
+import {displayLog} from "./utils/displayLog";
+
 $(document).ready(function(){
     console.log("Command Controller loaded");
     uiDisable(true)
@@ -91,31 +95,6 @@ async function readLoop() {
             break;
         }
     }
-}
-
-function writeToStream(...lines) {
-    // Stops data being written to nonexistent port if using emulator
-    if (port) {
-        const writer = outputStream.getWriter();
-        lines.forEach((line) => {
-            writer.write('<' + line + '>' + '\n');
-            console.log('<' + line + '>' + '\n')
-            if (line == "\x03" || line == "echo(false);") {
-                
-            } else {
-                displayLog('[SEND]'+line.toString());
-            }
-        });
-        writer.releaseLock();
-    } else {
-        lines.forEach((line) => {
-            displayLog('[SEND] '+line.toString());
-            message = emulator('<' + line + '>')
-            console.log('<' + line + '>' + '\n')
-            displayLog('[RECEIVE] '+message);
-        });
-    }
-
 }
 
 // Transformer for the Web Serial API. Data comes in as a stream so we
@@ -219,14 +198,6 @@ async function toggleServer(btn) {
     } else {
         selectMethod.disabled = false;
     }
-}
-
-// Display log of events
-function displayLog(data){
-    data = data.replace("<"," ");
-    data = data.replace(">"," ");
-    $("#log-box").append("<br>"+data.toString()+"<br>");
-    $("#log-box").scrollTop($("#log-box").prop("scrollHeight"));
 }
 
 // Function to generate commands for functions F0 to F4
