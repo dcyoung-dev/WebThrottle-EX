@@ -9,13 +9,13 @@ const sendString = "<F 22 14 0>"
 const returnString = "NONE"
 
 
-test(`sendString() is '${sendString}'`, () => {
+test(`Cab command sendString() is '${sendString}'`, () => {
     const command = cabCommand(options)
     const sendValue = command.sendString()
     expect(sendValue).toBe(sendString)
 })
 
-test(`returnString() is '${returnString}'`, () => {
+test(`Cab command returnString() is '${returnString}'`, () => {
     const command = cabCommand(options)
     const returnValue = command.returnString()
     expect(returnValue).toBe(returnString)

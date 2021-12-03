@@ -36,8 +36,8 @@ const options = {
         speed: 14,
         direction: 0
     },
-    sendString: "<t 1 0 0 1>",
-    returnString: "<T 1 0 0 1>"
+    sendString: "<t 1 22 14 0>",
+    returnString: "<T 1 22 14 0>"
 }
 
 const throttleTestCases = [
@@ -49,13 +49,13 @@ const throttleTestCases = [
 ]
 
 throttleTestCases.forEach(({options, returnString, sendString}) => {
-    test(`sendString() is '${sendString}'`, () => {
+    test(`Throttle command sendString() is '${sendString}'`, () => {
         const command = throttleCommand(options)
         const sendValue = command.sendString()
         expect(sendValue).toBe(sendString)
     })
 
-    test(`returnString() is '${returnString}'`, () => {
+    test(`Throttle command returnString() is '${returnString}'`, () => {
         const command = throttleCommand(options)
         const returnValue = command.returnString()
         expect(returnValue).toBe(returnString)

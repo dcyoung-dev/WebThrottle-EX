@@ -74,13 +74,13 @@ const powerTestCases = [
 ]
 
 powerTestCases.forEach(({options, returnString, sendString}) => {
-    test(`sendString() is '${sendString}'`, () => {
+    test(`Power command sendString() is '${sendString}'`, () => {
         const command = powerCommand(options)
         const sendValue = command.sendString()
         expect(sendValue).toBe(sendString)
     })
 
-    test(`returnString() is '${returnString}'`, () => {
+    test(`Power command returnString() is '${returnString}'`, () => {
         const command = powerCommand(options)
         const returnValue = command.returnString()
         expect(returnValue).toBe(returnString)
