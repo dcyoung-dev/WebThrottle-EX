@@ -1,7 +1,7 @@
 import {makeCommandString} from "./makeCommandString";
 
 /**
- *
+ * https://dcc-ex.com/reference/software/command-reference.html#track-power-commands
  * @param {0 | 1} power
  * @param {"MAIN" | "PROG" | "JOIN"} track
  * @return {string|{returnString(): string, sendString(): string, track, returnsKey: string, key}}
