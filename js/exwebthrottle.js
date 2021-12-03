@@ -321,12 +321,10 @@ function setSpeedofControllers(){
 
 // This function will generate commands for each type of function
 function generateFnCommand(clickedBtn){
-    
-       func = clickedBtn.attr('name'); // Gives function name (F1, F2, .... F28)
-       eventType = clickedBtn.data("type"); // Gives type of button (Press/Hold or Toggle)
-       btnPressed = clickedBtn.attr("aria-pressed");
-       //console.log("Function Name=>"+func+" , Button Type=>"+eventType+" , Button Pressed=>"+btnStatus);
-    
+       const func = clickedBtn.attr('name'); // Gives function name (F1, F2, .... F28)
+       const btnPressed = clickedBtn.attr("aria-pressed");
+       const btnValue = btnPressed==="true" ? 1 : 0
+
        switch(func){
             case "f0":
             case "f1":
@@ -334,11 +332,7 @@ function generateFnCommand(clickedBtn){
             case "f3":
             case "f4":
             { 
-                if(btnPressed=="true"){ 
-                    sendCommandForF0ToF4(func,1);                
-                }else{ 
-                    sendCommandForF0ToF4(func,0);
-                }
+                sendCommandForF0ToF4(func,btnValue);
                 break;
             }
             case "f5":
@@ -346,11 +340,7 @@ function generateFnCommand(clickedBtn){
             case "f7":
             case "f8":
             { 
-                if(btnPressed=="true"){ 
-                    sendCommandForF5ToF8(func,1);                
-                }else{ 
-                    sendCommandForF5ToF8(func,0);
-                }
+                sendCommandForF5ToF8(func,btnValue);
                 break;
             }
             case "f9":
@@ -358,11 +348,7 @@ function generateFnCommand(clickedBtn){
             case "f11":
             case "f12":
             { 
-                if(btnPressed=="true"){ 
-                    sendCommandForF9ToF12(func,1);                
-                }else{ 
-                    sendCommandForF9ToF12(func,0);
-                }
+                sendCommandForF9ToF12(func,btnValue);
                 break;
             }
             case "f13":
@@ -374,11 +360,7 @@ function generateFnCommand(clickedBtn){
             case "f19":
             case "f20":
                 { 
-                    if(btnPressed=="true"){ 
-                        sendCommandForF13ToF20(func,1);                
-                    }else{     
-                        sendCommandForF13ToF20(func,0);
-                    }
+                    sendCommandForF13ToF20(func,btnValue);
                     break;
             }
             case "f21":
@@ -390,11 +372,7 @@ function generateFnCommand(clickedBtn){
             case "f27":
             case "f28":
                 { 
-                    if(btnPressed=="true"){ 
-                        sendCommandForF21ToF28(func,1);                
-                    }else{  
-                        sendCommandForF21ToF28(func,0);
-                    }
+                    sendCommandForF21ToF28(func,btnValue);
                     break;
             }
             default:
