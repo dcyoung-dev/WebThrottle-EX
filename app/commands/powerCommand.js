@@ -1,4 +1,4 @@
-import {makeCommandString} from "./makeCommandString";
+import {makeCommandString} from "./makeCommandString.js";
 
 /**
  * https://dcc-ex.com/reference/software/command-reference.html#track-power-commands
