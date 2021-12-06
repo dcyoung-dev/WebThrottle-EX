@@ -1,6 +1,7 @@
 import {
+  listTurnouts,
   defineDCCTurnoutCommand,
-  defineServoTurnoutCommand, defineVPINTurnoutCommand,
+  defineServoTurnoutCommand, defineVPINTurnoutCommand, deleteTurnout,
   turnoutCommand
 } from "../../../app/commands/turnoutCommands.js";
 
@@ -101,7 +102,6 @@ describe("defineServoTurnoutCommand()", function () {
     const returnValue = command.returnString
     expect(returnValue).toBe(returnString)
   })
-
 })
 
 describe("defineVPINTurnoutCommand()", function () {
@@ -124,5 +124,42 @@ describe("defineVPINTurnoutCommand()", function () {
     const returnValue = command.returnString
     expect(returnValue).toBe(returnString)
   })
+})
 
+describe("deleteTurnoutCommand()", function () {
+  const options = {
+    turnout: 12,
+  }
+
+  const sendString = "<T 12>"
+  const returnString = "<0>"
+
+  test(`sendString is '${sendString}'`, () => {
+    const command = deleteTurnout(options)
+    const sendValue = command.sendString
+    expect(sendValue).toBe(sendString)
+  })
+
+  test(`returnString is '${returnString}'`, () => {
+    const command = deleteTurnout(options)
+    const returnValue = command.returnString
+    expect(returnValue).toBe(returnString)
+  })
+})
+
+describe("listTurnoutsCommand()", function () {
+  const sendString = "<T>"
+  const returnString = "<X>"
+
+  test(`sendString is '${sendString}'`, () => {
+    const command = listTurnouts()
+    const sendValue = command.sendString
+    expect(sendValue).toBe(sendString)
+  })
+
+  test(`returnString is '${returnString}'`, () => {
+    const command = listTurnouts()
+    const returnValue = command.returnString
+    expect(returnValue).toBe(returnString)
+  })
 })
