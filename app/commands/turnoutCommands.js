@@ -101,3 +101,27 @@ export function defineServoTurnoutCommand({turnout, pin, thrownPosition, closedP
     }
   }
 }
+
+export function defineVPINTurnoutCommand({turnout, pin}){
+  const constant = "VPIN"
+  return {
+    key: "T",
+    returnsKey: "0",
+    turnout,
+    constant,
+    pin,
+    get sendString() {
+      const attributes = [
+        this.key,
+        this.turnout,
+        this.constant,
+        this.pin,
+      ]
+      const str = attributes.join(" ")
+      return makeCommandString(str)
+    },
+    get returnString() {
+      return makeCommandString(this.returnsKey)
+    }
+  }
+}

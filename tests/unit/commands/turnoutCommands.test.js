@@ -1,6 +1,6 @@
 import {
   defineDCCTurnoutCommand,
-  defineServoTurnoutCommand,
+  defineServoTurnoutCommand, defineVPINTurnoutCommand,
   turnoutCommand
 } from "../../../app/commands/turnoutCommands.js";
 
@@ -98,6 +98,29 @@ describe("defineServoTurnoutCommand()", function () {
 
   test(`returnString is '${returnString}'`, () => {
     const command = defineServoTurnoutCommand(options)
+    const returnValue = command.returnString
+    expect(returnValue).toBe(returnString)
+  })
+
+})
+
+describe("defineVPINTurnoutCommand()", function () {
+  const options = {
+    turnout: 12,
+    pin: 100,
+  }
+
+  const sendString = "<T 12 VPIN 100>"
+  const returnString = "<0>"
+
+  test(`sendString is '${sendString}'`, () => {
+    const command = defineVPINTurnoutCommand(options)
+    const sendValue = command.sendString
+    expect(sendValue).toBe(sendString)
+  })
+
+  test(`returnString is '${returnString}'`, () => {
+    const command = defineVPINTurnoutCommand(options)
     const returnValue = command.returnString
     expect(returnValue).toBe(returnString)
   })
