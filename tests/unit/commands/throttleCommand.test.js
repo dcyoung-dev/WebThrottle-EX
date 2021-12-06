@@ -48,16 +48,19 @@ const throttleTestCases = [
     options
 ]
 
-throttleTestCases.forEach(({options, returnString, sendString}) => {
-    test(`Throttle command sendString() is '${sendString}'`, () => {
-        const command = throttleCommand(options)
-        const sendValue = command.sendString()
-        expect(sendValue).toBe(sendString)
-    })
+describe('throttleCommand()', function () {
+    throttleTestCases.forEach(({options, returnString, sendString}) => {
+        test(`sendString is '${sendString}'`, () => {
+            const command = throttleCommand(options)
+            const sendValue = command.sendString
+            expect(sendValue).toBe(sendString)
+        })
 
-    test(`Throttle command returnString() is '${returnString}'`, () => {
-        const command = throttleCommand(options)
-        const returnValue = command.returnString()
-        expect(returnValue).toBe(returnString)
+        test(`returnString is '${returnString}'`, () => {
+            const command = throttleCommand(options)
+            const returnValue = command.returnString
+            expect(returnValue).toBe(returnString)
+        })
     })
-})
+});
+

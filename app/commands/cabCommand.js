@@ -10,11 +10,11 @@ import {makeCommandString} from "./makeCommandString.js";
 export function cabCommand({cab, func, value}) {
     return {
         key: "F",
-        returnsKey: "NONE",
+        returnsKey: null,
         cab,
         func,
         value,
-        sendString() {
+        get sendString() {
             const attributes = [
                 this.key,
                 this.cab.toString(),
@@ -24,8 +24,8 @@ export function cabCommand({cab, func, value}) {
             const str = attributes.join(" ")
             return makeCommandString(str)
         },
-        returnString() {
-            return this.returnsKey;
+        get returnString() {
+            return null
         }
     }
 }

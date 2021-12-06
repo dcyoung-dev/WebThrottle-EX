@@ -11,11 +11,11 @@ export function powerCommand({power, track}) {
     key: power,
     track: track,
     returnsKey: "p",
-    sendString() {
+    get sendString() {
       const str = [this.key.toString(), this.track].filter(char => !!char).join(" ")
       return makeCommandString(str)
     },
-    returnString() {
+    get returnString() {
       const returns = [`${this.returnsKey}${this.key}`, this.track].filter(char => !!char).join(" ")
       return makeCommandString(returns)
     }

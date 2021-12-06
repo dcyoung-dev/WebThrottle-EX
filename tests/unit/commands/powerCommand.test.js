@@ -73,16 +73,19 @@ const powerTestCases = [
     powerOnJoin,
 ]
 
-powerTestCases.forEach(({options, returnString, sendString}) => {
-    test(`Power command sendString() is '${sendString}'`, () => {
-        const command = powerCommand(options)
-        const sendValue = command.sendString()
-        expect(sendValue).toBe(sendString)
-    })
+describe('powerCommand()', function () {
+    powerTestCases.forEach(({options, returnString, sendString}) => {
+        test(`sendString is '${sendString}'`, () => {
+            const command = powerCommand(options)
+            const sendValue = command.sendString
+            expect(sendValue).toBe(sendString)
+        })
 
-    test(`Power command returnString() is '${returnString}'`, () => {
-        const command = powerCommand(options)
-        const returnValue = command.returnString()
-        expect(returnValue).toBe(returnString)
+        test(`returnString is '${returnString}'`, () => {
+            const command = powerCommand(options)
+            const returnValue = command.returnString
+            expect(returnValue).toBe(returnString)
+        })
     })
-})
+});
+

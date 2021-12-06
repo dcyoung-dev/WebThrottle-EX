@@ -15,7 +15,7 @@ export function throttleCommand({cab = 0, speed = 0, direction = 1}) {
         cab,
         speed,
         direction,
-        sendString() {
+        get sendString() {
             const attributes = [
                 this.key,
                 this.legacy.toString(),
@@ -26,7 +26,7 @@ export function throttleCommand({cab = 0, speed = 0, direction = 1}) {
             const str = attributes.join(" ")
             return makeCommandString(str)
         },
-        returnString() {
+        get returnString() {
             const attributes = [
                 this.returnsKey,
                 this.legacy.toString(),

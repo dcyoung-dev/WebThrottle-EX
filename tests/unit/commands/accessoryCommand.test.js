@@ -1,6 +1,6 @@
 import {accessoryCommand} from "../../../app/commands/accessoryCommand";
 
-describe('Accessory Command', function () {
+describe('accessoryCommand', function () {
     describe('with Linear address options', function () {
         const linearAddressOptions = {
             address: 1234,
@@ -10,15 +10,15 @@ describe('Accessory Command', function () {
         const sendString = "<a 1234 0>"
         const returnString = null
 
-        test(`Accessory command sendString() is '${sendString}'`, () => {
+        test(`sendString is '${sendString}'`, () => {
             const command = accessoryCommand(linearAddressOptions)
-            const sendValue = command.sendString()
+            const sendValue = command.sendString
             expect(sendValue).toBe(sendString)
         })
 
-        test(`Accessory command returnString() is '${returnString}'`, () => {
+        test(`returnString is '${returnString}'`, () => {
             const command = accessoryCommand(linearAddressOptions)
-            const returnValue = command.returnString()
+            const returnValue = command.returnString
             expect(returnValue).toBe(returnString)
         })
     });
@@ -38,13 +38,13 @@ describe('Accessory Command', function () {
 
         test(`Accessory command sendString() is '${sendString}'`, () => {
             const command = accessoryCommand(dualCoilAddressOptions)
-            const sendValue = command.sendString()
+            const sendValue = command.sendString
             expect(sendValue).toBe(sendString)
         })
 
         test(`Accessory command returnString() is '${returnString}'`, () => {
             const command = accessoryCommand(dualCoilAddressOptions)
-            const returnValue = command.returnString()
+            const returnValue = command.returnString
             expect(returnValue).toBe(returnString)
         })
     });

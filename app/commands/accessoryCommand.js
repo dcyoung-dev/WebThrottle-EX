@@ -21,7 +21,7 @@ export function accessoryCommand({address, active}) {
         returnsKey: null,
         address,
         active,
-        sendString() {
+        get sendString() {
             const addressSend = linearAddress || `${primaryAddress} ${subAddress}`
             const attributes = [
                 this.key,
@@ -31,8 +31,8 @@ export function accessoryCommand({address, active}) {
             const str = attributes.join(" ")
             return makeCommandString(str)
         },
-        returnString() {
-            return null;
+        get returnString() {
+            return null
         }
     }
 }
