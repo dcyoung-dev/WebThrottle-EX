@@ -65,3 +65,39 @@ export function defineDCCTurnoutCommand({turnout, address}) {
           }
       }
 }
+
+/**
+ *
+ * @param {number} turnout
+ * @param {number} pin
+ * @param {number} thrownPosition
+ * @param {number} closedPosition
+ * @param {0 | 1 | 2 | 3 | 4} profile
+ * @returns {{readonly returnString: string, readonly sendString: string, constant: string, pin, turnout, closedPosition, thrownPosition, profile, returnsKey: string, key: string}|string}
+ */
+export function defineServoTurnoutCommand({turnout, pin, thrownPosition, closedPosition, profile}){
+  const constant = "SERVO"
+  return {
+    key: "T",
+    returnsKey: "0",
+    turnout,
+    constant,
+    pin, thrownPosition,closedPosition, profile,
+    get sendString() {
+      const attributes = [
+        this.key,
+        this.turnout,
+        this.constant,
+        this.pin,
+        this.thrownPosition,
+        this.closedPosition,
+        this.profile
+      ]
+      const str = attributes.join(" ")
+      return makeCommandString(str)
+    },
+    get returnString() {
+      return makeCommandString(this.returnsKey)
+    }
+  }
+}
