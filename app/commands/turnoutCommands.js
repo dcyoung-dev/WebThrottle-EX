@@ -1,7 +1,7 @@
 import {makeCommandString} from "./makeCommandString.js";
 
 /**
- * https://dcc-ex.com/reference/software/command-reference.html#engine-decoder-cab-operation-commands
+ * https://dcc-ex.com/reference/software/command-reference.html#controlling-a-defined-turnout
  * @param {number} turnout
  * @param {0 | 1 } thrown
  * @return {{readonly returnString: string, readonly sendString: string, turnout, thrown, returnsKey: string, key: string}|string}
