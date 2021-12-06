@@ -5,7 +5,7 @@ import {makeCommandString} from "./makeCommandString.js";
  * @param {number} cab
  * @param {number} func
  * @param {0 | 1} value
- * @returns {string|{returnString(): string, sendString(): string, func, cab, returnsKey: string, value, key: string}}
+ * @returns {string|{returnString: string, sendString: string, func, cab, returnsKey: string, value, key: string}}
  */
 export function cabCommand({cab, func, value}) {
     return {
