@@ -1,10 +1,10 @@
-import {makeCommandString} from "./makeCommandString.js";
-
 /**
  * Stores unsaved changes in EEPROM
  * https://dcc-ex.com/reference/software/command-reference.html#defining-setting-up-a-turnout
  * @return {string|{readonly returnString: string, readonly sendString: string, returnsKey: string, key: string}}
  */
+import {makeCommandString} from "./utils.js";
+
 export function storeCommand() {
     return {
         key: "E",

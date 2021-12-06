@@ -1,4 +1,4 @@
-import {makeCommandString} from "./makeCommandString.js";
+import {makeCommandString, parseAddress} from "./utils.js";
 
 /**
  * https://dcc-ex.com/reference/software/command-reference.html#accessory-decoder-commands
@@ -7,14 +7,7 @@ import {makeCommandString} from "./makeCommandString.js";
  * @returns {{returnString: null, sendString: string, address, active, returnsKey: null, key: string}}
  */
 export function accessoryCommand({address, active}) {
-    let linearAddress, primaryAddress, subAddress;
-
-    if (typeof(address) === "number") {
-        linearAddress = address
-    } else {
-        primaryAddress = address.primaryAddress
-        subAddress = address.subAddress
-    }
+    const {linearAddress, primaryAddress, subAddress} = parseAddress(address);
 
     return {
         key: "a",

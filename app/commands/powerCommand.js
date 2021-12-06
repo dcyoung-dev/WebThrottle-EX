@@ -1,11 +1,11 @@
-import {makeCommandString} from "./makeCommandString.js";
-
 /**
  * https://dcc-ex.com/reference/software/command-reference.html#track-power-commands
  * @param {0 | 1} power
  * @param {"MAIN" | "PROG" | "JOIN"} track
  * @return {string|{returnString: string, sendString: string, track, returnsKey: string, key}}
  */
+import {makeCommandString} from "./utils.js";
+
 export function powerCommand({power, track}) {
   return {
     key: power,

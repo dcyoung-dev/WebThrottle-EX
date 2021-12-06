@@ -1,4 +1,4 @@
-import {turnoutCommand} from "../../../app/commands/turnoutCommands.js";
+import {defineTurnoutCommand, turnoutCommand} from "../../../app/commands/turnoutCommands.js";
 
 describe('turnoutCommand()', function () {
     const options = {
@@ -21,3 +21,54 @@ describe('turnoutCommand()', function () {
         expect(returnValue).toBe(returnString)
     })
 });
+
+
+describe("defineTurnoutCommand()", function() {
+    describe('with Linear address options', function () {
+        const linearAddressOptions = {
+            turnout: 12,
+            address: 1234,
+        }
+
+        const sendString = "<T 12 DCC 1234>"
+        const returnString = "<0>"
+
+        test(`sendString is '${sendString}'`, () => {
+            const command = defineTurnoutCommand(linearAddressOptions)
+            const sendValue = command.sendString
+            expect(sendValue).toBe(sendString)
+        })
+
+        test(`returnString is '${returnString}'`, () => {
+            const command = defineTurnoutCommand(linearAddressOptions)
+            const returnValue = command.returnString
+            expect(returnValue).toBe(returnString)
+        })
+    });
+
+    describe('with Dual Coil address options', function () {
+        const dualCoilAddressOptions = {
+            turnout: 12,
+            address: {
+                primaryAddress: 1234,
+                subAddress: 2
+            }
+        }
+
+        const sendString = "<T 12 DCC 1234 2>"
+        const returnString = "<0>"
+
+
+        test(`Accessory command sendString() is '${sendString}'`, () => {
+            const command = defineTurnoutCommand(dualCoilAddressOptions)
+            const sendValue = command.sendString
+            expect(sendValue).toBe(sendString)
+        })
+
+        test(`Accessory command returnString() is '${returnString}'`, () => {
+            const command = defineTurnoutCommand(dualCoilAddressOptions)
+            const returnValue = command.returnString
+            expect(returnValue).toBe(returnString)
+        })
+    });
+})

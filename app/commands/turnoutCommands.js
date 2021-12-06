@@ -1,4 +1,4 @@
-import {makeCommandString} from "./makeCommandString.js";
+import {makeCommandString, parseAddress} from "./utils.js";
 
 /**
  * https://dcc-ex.com/reference/software/command-reference.html#controlling-a-defined-turnout
@@ -31,4 +31,37 @@ export function turnoutCommand({turnout, thrown}) {
             return makeCommandString(str)
         }
     }
+}
+
+/**
+ * https://dcc-ex.com/reference/software/command-reference.html#defining-setting-up-a-turnout
+ * @param {number} turnout
+ * @param { number | {primaryAddress: number, subAddress: number}} address
+ * @return {{readonly returnString: string, readonly sendString: string, turnout, thrown, returnsKey: string, key: string}|string}
+ */
+export function defineTurnoutCommand({turnout, address}) {
+    const constant = "DCC";
+    const {linearAddress, primaryAddress, subAddress} = parseAddress(address);
+
+    return {
+          key: "T",
+          returnsKey: "0",
+          turnout,
+          constant,
+          address,
+          get sendString() {
+              const addressSend = linearAddress || `${primaryAddress} ${subAddress}`
+              const attributes = [
+                  this.key,
+                  this.turnout,
+                  this.constant,
+                  addressSend
+              ]
+              const str = attributes.join(" ")
+              return makeCommandString(str)
+          },
+          get returnString() {
+              return makeCommandString(this.returnsKey)
+          }
+      }
 }
