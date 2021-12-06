@@ -1,3 +1,5 @@
+import {makeCommandString} from "./utils.js";
+
 /**
  * https://dcc-ex.com/reference/software/command-reference.html#engine-decoder-cab-operation-commands
  * @param {number} cab
@@ -5,8 +7,6 @@
  * @param {0 | 1 | -1} direction
  * @returns {string|{returnString: string, sendString: string, legacy: number, cab, returnsKey: string, key: string, speed, direction}}
  */
-import {makeCommandString} from "./utils.js";
-
 export function throttleCommand({cab = 0, speed = 0, direction = 1}) {
     return {
         key: "t",

@@ -39,7 +39,7 @@ export function turnoutCommand({turnout, thrown}) {
  * @param { number | {primaryAddress: number, subAddress: number}} address
  * @return {{readonly returnString: string, readonly sendString: string, turnout, thrown, returnsKey: string, key: string}|string}
  */
-export function defineTurnoutCommand({turnout, address}) {
+export function defineDCCTurnoutCommand({turnout, address}) {
     const constant = "DCC";
     const {linearAddress, primaryAddress, subAddress} = parseAddress(address);
 

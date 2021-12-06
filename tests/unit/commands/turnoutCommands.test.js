@@ -1,4 +1,4 @@
-import {defineTurnoutCommand, turnoutCommand} from "../../../app/commands/turnoutCommands.js";
+import {defineDCCTurnoutCommand, turnoutCommand} from "../../../app/commands/turnoutCommands.js";
 
 describe('turnoutCommand()', function () {
     const options = {
@@ -34,13 +34,13 @@ describe("defineTurnoutCommand()", function() {
         const returnString = "<0>"
 
         test(`sendString is '${sendString}'`, () => {
-            const command = defineTurnoutCommand(linearAddressOptions)
+            const command = defineDCCTurnoutCommand(linearAddressOptions)
             const sendValue = command.sendString
             expect(sendValue).toBe(sendString)
         })
 
         test(`returnString is '${returnString}'`, () => {
-            const command = defineTurnoutCommand(linearAddressOptions)
+            const command = defineDCCTurnoutCommand(linearAddressOptions)
             const returnValue = command.returnString
             expect(returnValue).toBe(returnString)
         })
@@ -60,13 +60,13 @@ describe("defineTurnoutCommand()", function() {
 
 
         test(`Accessory command sendString() is '${sendString}'`, () => {
-            const command = defineTurnoutCommand(dualCoilAddressOptions)
+            const command = defineDCCTurnoutCommand(dualCoilAddressOptions)
             const sendValue = command.sendString
             expect(sendValue).toBe(sendString)
         })
 
         test(`Accessory command returnString() is '${returnString}'`, () => {
-            const command = defineTurnoutCommand(dualCoilAddressOptions)
+            const command = defineDCCTurnoutCommand(dualCoilAddressOptions)
             const returnValue = command.returnString
             expect(returnValue).toBe(returnString)
         })

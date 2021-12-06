@@ -1,3 +1,5 @@
+import {makeCommandString} from "./utils.js";
+
 /**
  * https://dcc-ex.com/reference/software/command-reference.html#cab-functions
  * @param {number} cab
@@ -5,8 +7,6 @@
  * @param {0 | 1} value
  * @returns {string|{returnString: string, sendString: string, func, cab, returnsKey: string, value, key: string}}
  */
-import {makeCommandString} from "./utils.js";
-
 export function cabCommand({cab, func, value}) {
     return {
         key: "F",
