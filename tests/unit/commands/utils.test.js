@@ -17,11 +17,11 @@ describe('parseAddress()', function () {
     })
     test("returns with the primary address blank ", function (){
       const {primaryAddress} = parseAddress(linearAddressArguments)
-      expect(primaryAddress).toBe(undefined)
+      expect(primaryAddress).toBe(null)
     })
     test("returns with the sub address blank ", function (){
       const {subAddress} = parseAddress(linearAddressArguments)
-      expect(subAddress).toBe(undefined)
+      expect(subAddress).toBe(null)
     })
   });
 
@@ -33,7 +33,7 @@ describe('parseAddress()', function () {
 
     test("returns with the linear address filled", function (){
       const {linearAddress} = parseAddress(dualCoilAddressArguments)
-      expect(linearAddress).toBe(undefined)
+      expect(linearAddress).toBe(null)
     })
     test("returns with the primary address blank ", function (){
       const {primaryAddress} = parseAddress(dualCoilAddressArguments)
