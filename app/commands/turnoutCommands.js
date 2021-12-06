@@ -102,6 +102,12 @@ export function defineServoTurnoutCommand({turnout, pin, thrownPosition, closedP
   }
 }
 
+/**
+ *
+ * @param {number} turnout
+ * @param {number} pin
+ * @returns {{readonly returnString: string, readonly sendString: string, constant: string, pin, turnout, returnsKey: string, key: string}|string}
+ */
 export function defineVPINTurnoutCommand({turnout, pin}){
   const constant = "VPIN"
   return {
