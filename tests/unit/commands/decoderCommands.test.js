@@ -183,7 +183,7 @@ describe('verifyCVBitProgrammingCommand()', function () {
   const options = {
     cv: 14,
     bit: 5,
-    byteValue: 1
+    bitValue: 1
   }
   const sendString = '<V 14 5 1>'
   const returnString = '<v 14 5 1>'

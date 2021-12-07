@@ -238,7 +238,8 @@ export function readAddressProgrammingCommand () {
 }
 
 /**
- *
+ * VERIFY CONFIGURATION VARIABLE BYTE FROM ENGINE DECODER ON PROGRAMMING TRACK
+ * https://dcc-ex.com/reference/software/command-reference.html#verify-configuration-variable-byte-from-engine-decoder-on-programming-track
  * @param {number} cv
  * @param {number} byteValue The value of they byte expected to be in the CV
  * @returns {string|{readonly returnString: string, readonly sendString: string, cv, returnsKey: string, key: string, byteValue}}
@@ -270,19 +271,27 @@ export function verifyCVByteProgrammingCommand ({ cv, byteValue }) {
   }
 }
 
-export function verifyCVBitProgrammingCommand ({ cv, bit, byteValue }) {
+/**
+ * VERIFY CONFIGURATION VARIABLE BIT FROM ENGINE DECODER ON PROGRAMMING TRACK
+ * https://dcc-ex.com/reference/software/command-reference.html#verify-configuration-variable-bit-from-engine-decoder-on-programming-track
+ * @param {number} cv
+ * @param {number} bit
+ * @param {0 | 1} bitValue
+ * @returns {string|{readonly returnString: string, readonly sendString: string, cv, bitValue, bit, returnsKey: string, key: string}}
+ */
+export function verifyCVBitProgrammingCommand ({ cv, bit, bitValue }) {
   return {
     key: 'V',
     returnsKey: 'v',
     cv,
     bit,
-    byteValue,
+    bitValue,
     get sendString () {
       const attributes = [
         this.key,
         this.cv,
         this.bit,
-        this.byteValue
+        this.bitValue
       ]
       const str = attributes.join(' ')
       return makeCommandString(str)
@@ -292,7 +301,7 @@ export function verifyCVBitProgrammingCommand ({ cv, bit, byteValue }) {
         this.returnsKey,
         this.cv,
         this.bit,
-        this.byteValue
+        this.bitValue
       ]
       const str = attributes.join(' ')
       return makeCommandString(str)
