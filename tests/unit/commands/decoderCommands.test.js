@@ -1,11 +1,11 @@
 import {
-  writeAddressProgramming,
-  writeConfigurationBitMain, writeConfigurationBitProgramming,
-  writeConfigurationByteMain,
-  writeConfigurationByteProgramming
+  writeAddressProgrammingCommand,
+  writeCVBitMainCommand, writeCVBitProgrammingCommand,
+  writeCVByteMainCommand,
+  writeCVByteProgrammingCommand
 } from '../../../app/commands/decoderCommands'
 
-describe('writeConfigurationByteMain()', function () {
+describe('writeCVByteMainCommand()', function () {
   const options = {
     cab: 22,
     cv: 14,
@@ -15,19 +15,19 @@ describe('writeConfigurationByteMain()', function () {
   const returnString = null
 
   test(`sendString is '${sendString}'`, () => {
-    const command = writeConfigurationByteMain(options)
+    const command = writeCVByteMainCommand(options)
     const sendValue = command.sendString
     expect(sendValue).toBe(sendString)
   })
 
   test(`returnString is '${returnString}'`, () => {
-    const command = writeConfigurationByteMain(options)
+    const command = writeCVByteMainCommand(options)
     const returnValue = command.returnString
     expect(returnValue).toBe(returnString)
   })
 })
 
-describe('writeConfigurationBitMain()', function () {
+describe('writeCVBitMainCommand()', function () {
   const options = {
     cab: 22,
     cv: 14,
@@ -38,19 +38,19 @@ describe('writeConfigurationBitMain()', function () {
   const returnString = null
 
   test(`sendString is '${sendString}'`, () => {
-    const command = writeConfigurationBitMain(options)
+    const command = writeCVBitMainCommand(options)
     const sendValue = command.sendString
     expect(sendValue).toBe(sendString)
   })
 
   test(`returnString is '${returnString}'`, () => {
-    const command = writeConfigurationBitMain(options)
+    const command = writeCVBitMainCommand(options)
     const returnValue = command.returnString
     expect(returnValue).toBe(returnString)
   })
 })
 
-describe('writeAddressProgramming()', function () {
+describe('writeAddressProgrammingCommand()', function () {
   const options = {
     address: 1024
   }
@@ -58,19 +58,19 @@ describe('writeAddressProgramming()', function () {
   const returnString = null
 
   test(`sendString is '${sendString}'`, () => {
-    const command = writeAddressProgramming(options)
+    const command = writeAddressProgrammingCommand(options)
     const sendValue = command.sendString
     expect(sendValue).toBe(sendString)
   })
 
   test(`returnString is '${returnString}'`, () => {
-    const command = writeAddressProgramming(options)
+    const command = writeAddressProgrammingCommand(options)
     const returnValue = command.returnString
     expect(returnValue).toBe(returnString)
   })
 })
 
-describe('writeConfigurationByteProgramming()', function () {
+describe('writeCVByteProgrammingCommand()', function () {
   const options = {
     cv: 14,
     value: 134,
@@ -81,19 +81,19 @@ describe('writeConfigurationByteProgramming()', function () {
   const returnString = '<r 1024|3|14 134>'
 
   test(`sendString is '${sendString}'`, () => {
-    const command = writeConfigurationByteProgramming(options)
+    const command = writeCVByteProgrammingCommand(options)
     const sendValue = command.sendString
     expect(sendValue).toBe(sendString)
   })
 
   test(`returnString is '${returnString}'`, () => {
-    const command = writeConfigurationByteProgramming(options)
+    const command = writeCVByteProgrammingCommand(options)
     const returnValue = command.returnString
     expect(returnValue).toBe(returnString)
   })
 })
 
-describe('writeConfigurationBitProgramming()', function () {
+describe('writeCVBitProgrammingCommand()', function () {
   const options = {
     cv: 14,
     bit: 4,
@@ -105,13 +105,13 @@ describe('writeConfigurationBitProgramming()', function () {
   const returnString = '<r 1024|3|14 4 134>'
 
   test(`sendString is '${sendString}'`, () => {
-    const command = writeConfigurationBitProgramming(options)
+    const command = writeCVBitProgrammingCommand(options)
     const sendValue = command.sendString
     expect(sendValue).toBe(sendString)
   })
 
   test(`returnString is '${returnString}'`, () => {
-    const command = writeConfigurationBitProgramming(options)
+    const command = writeCVBitProgrammingCommand(options)
     const returnValue = command.returnString
     expect(returnValue).toBe(returnString)
   })

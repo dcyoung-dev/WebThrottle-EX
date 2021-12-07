@@ -8,7 +8,7 @@ import { makeCommandString } from './utils'
  * @param {number} value
  * @returns {{readonly returnString: null, readonly sendString: string, cv, cab, returnsKey: null, value, key: string}|string|null}
  */
-export function writeConfigurationByteMain ({ cab, cv, value }) {
+export function writeCVByteMainCommand ({ cab, cv, value }) {
   return {
     key: 'w',
     returnsKey: null,
@@ -40,7 +40,7 @@ export function writeConfigurationByteMain ({ cab, cv, value }) {
  * @param {0 | 1} value
  * @returns {string|null|{readonly returnString: null, readonly sendString: string, cv, cab, bit, returnsKey: null, value, key: string}}
  */
-export function writeConfigurationBitMain ({ cab, cv, bit, value }) {
+export function writeCVBitMainCommand ({ cab, cv, bit, value }) {
   return {
     key: 'b',
     returnsKey: null,
@@ -71,7 +71,7 @@ export function writeConfigurationBitMain ({ cab, cv, bit, value }) {
  * @param {number} address
  * @returns {string|null|{readonly returnString: null, readonly sendString: string, address, returnsKey: null, key: string}}
  */
-export function writeAddressProgramming ({ address }) {
+export function writeAddressProgrammingCommand ({ address }) {
   return {
     key: 'W',
     returnsKey: null,
@@ -99,7 +99,7 @@ export function writeAddressProgramming ({ address }) {
  * @param {number} callbackSub
  * @returns {{readonly returnString: string, callbackNum, readonly sendString: string, cv, callbackSub, returnsKey: string, value, key: string}|string}
  */
-export function writeConfigurationByteProgramming ({ cv, value, callbackNum, callbackSub }) {
+export function writeCVByteProgrammingCommand ({ cv, value, callbackNum, callbackSub }) {
   return {
     key: 'W',
     returnsKey: 'r',
@@ -141,7 +141,7 @@ export function writeConfigurationByteProgramming ({ cv, value, callbackNum, cal
  * @param {number} callbackSub
  * @returns {{readonly returnString: string, callbackNum, readonly sendString: string, cv, callbackSub, returnsKey: string, value, key: string}|string}
  */
-export function writeConfigurationBitProgramming ({ cv, bit, value, callbackNum, callbackSub }) {
+export function writeCVBitProgrammingCommand ({ cv, bit, value, callbackNum, callbackSub }) {
   return {
     key: 'B',
     returnsKey: 'r',
