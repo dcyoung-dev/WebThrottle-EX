@@ -175,3 +175,64 @@ export function writeCVBitProgrammingCommand ({ cv, bit, value, callbackNum, cal
     }
   }
 }
+
+/**
+ * READ CONFIGURATION VARIABLE BYTE FROM ENGINE DECODER ON PROGRAMMING TRACK
+ * https://dcc-ex.com/reference/software/command-reference.html#read-configuration-variable-byte-from-engine-decoder-on-programming-track
+ * @param {number} cv
+ * @param {number} callbackNum
+ * @param {number} callbackSub
+ * @returns {{readonly returnString: string, callbackNum, readonly sendString: string, cv, callbackSub, returnsKey: string, value, key: string}|string}
+ */
+export function readCVByteProgrammingCommand ({ cv, callbackNum, callbackSub }) {
+  return {
+    key: 'R',
+    returnsKey: 'r',
+    cv,
+    callbackNum,
+    callbackSub,
+    get sendString () {
+      const attributes = [
+        this.key,
+        this.cv,
+        this.callbackNum,
+        this.callbackSub
+      ]
+      const str = attributes.join(' ')
+      return makeCommandString(str)
+    },
+    get returnString () {
+      const combined = [this.callbackNum, this.callbackSub, this.cv].join('|')
+      const attributes = [
+        this.returnsKey,
+        combined,
+        -1 // read could not be verified
+      ]
+      const str = attributes.join(' ')
+      return makeCommandString(str)
+    }
+  }
+}
+
+/**
+ * Read Engine address
+ * https://dcc-ex.com/reference/software/command-reference.html#read-configuration-variable-byte-from-engine-decoder-on-programming-track
+ * @returns {string|{readonly returnString: string, readonly sendString: string, returnsKey: string, key: string}}
+ */
+export function readAddressProgrammingCommand () {
+  return {
+    key: 'R',
+    returnsKey: 'r',
+    get sendString () {
+      return makeCommandString(this.key)
+    },
+    get returnString () {
+      const attributes = [
+        this.returnsKey,
+        -1 // read could not be verified
+      ]
+      const str = attributes.join(' ')
+      return makeCommandString(str)
+    }
+  }
+}
