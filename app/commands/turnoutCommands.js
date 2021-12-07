@@ -137,7 +137,7 @@ export function defineVPINTurnoutCommand({turnout, pin}){
  * @param {number} turnout
  * @returns {{readonly returnString: string, readonly sendString: string, turnout, returnsKey: string, key: string}|string}
  */
-export function deleteTurnout({turnout}) {
+export function deleteTurnoutCommand({turnout}) {
   return {
     key: "T",
     returnsKey: "0",
@@ -160,7 +160,7 @@ export function deleteTurnout({turnout}) {
  *
  * @returns {string|{readonly returnString: string, readonly sendString: string, returnsKey: string, key: string}}
  */
-export function listTurnouts() {
+export function listTurnoutsCommand() {
   return {
     key: "T",
     returnsKey: "X",
