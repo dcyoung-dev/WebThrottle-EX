@@ -1,6 +1,6 @@
 import {
   readAddressProgrammingCommand,
-  readCVByteProgrammingCommand,
+  readCVByteProgrammingCommand, verifyCVBitProgrammingCommand, verifyCVByteProgrammingCommand,
   writeAddressProgrammingCommand,
   writeCVBitMainCommand, writeCVBitProgrammingCommand,
   writeCVByteMainCommand,
@@ -153,6 +153,49 @@ describe('readAddressProgrammingCommand()', function () {
 
   test(`returnString is '${returnString}'`, () => {
     const command = readAddressProgrammingCommand()
+    const returnValue = command.returnString
+    expect(returnValue).toBe(returnString)
+  })
+})
+
+describe('verifyCVByteProgrammingCommand()', function () {
+  const options = {
+    cv: 14,
+    byteValue: 134
+  }
+  const sendString = '<V 14 134>'
+  const returnString = '<v 14 134>'
+
+  test(`sendString is '${sendString}'`, () => {
+    const command = verifyCVByteProgrammingCommand(options)
+    const sendValue = command.sendString
+    expect(sendValue).toBe(sendString)
+  })
+
+  test(`returnString is '${returnString}'`, () => {
+    const command = verifyCVByteProgrammingCommand(options)
+    const returnValue = command.returnString
+    expect(returnValue).toBe(returnString)
+  })
+})
+
+describe('verifyCVBitProgrammingCommand()', function () {
+  const options = {
+    cv: 14,
+    bit: 5,
+    byteValue: 1
+  }
+  const sendString = '<V 14 5 1>'
+  const returnString = '<v 14 5 1>'
+
+  test(`sendString is '${sendString}'`, () => {
+    const command = verifyCVBitProgrammingCommand(options)
+    const sendValue = command.sendString
+    expect(sendValue).toBe(sendString)
+  })
+
+  test(`returnString is '${returnString}'`, () => {
+    const command = verifyCVBitProgrammingCommand(options)
     const returnValue = command.returnString
     expect(returnValue).toBe(returnString)
   })

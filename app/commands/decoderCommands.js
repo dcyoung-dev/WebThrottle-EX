@@ -236,3 +236,66 @@ export function readAddressProgrammingCommand () {
     }
   }
 }
+
+/**
+ *
+ * @param {number} cv
+ * @param {number} byteValue The value of they byte expected to be in the CV
+ * @returns {string|{readonly returnString: string, readonly sendString: string, cv, returnsKey: string, key: string, byteValue}}
+ */
+export function verifyCVByteProgrammingCommand ({ cv, byteValue }) {
+  return {
+    key: 'V',
+    returnsKey: 'v',
+    cv,
+    byteValue,
+    get sendString () {
+      const attributes = [
+        this.key,
+        this.cv,
+        this.byteValue
+      ]
+      const str = attributes.join(' ')
+      return makeCommandString(str)
+    },
+    get returnString () {
+      const attributes = [
+        this.returnsKey,
+        this.cv,
+        this.byteValue
+      ]
+      const str = attributes.join(' ')
+      return makeCommandString(str)
+    }
+  }
+}
+
+export function verifyCVBitProgrammingCommand ({ cv, bit, byteValue }) {
+  return {
+    key: 'V',
+    returnsKey: 'v',
+    cv,
+    bit,
+    byteValue,
+    get sendString () {
+      const attributes = [
+        this.key,
+        this.cv,
+        this.bit,
+        this.byteValue
+      ]
+      const str = attributes.join(' ')
+      return makeCommandString(str)
+    },
+    get returnString () {
+      const attributes = [
+        this.returnsKey,
+        this.cv,
+        this.bit,
+        this.byteValue
+      ]
+      const str = attributes.join(' ')
+      return makeCommandString(str)
+    }
+  }
+}
