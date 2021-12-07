@@ -27,7 +27,6 @@ describe('turnoutCommand()', function () {
   })
 });
 
-
 describe("defineDCCTurnoutCommand()", function () {
   describe('with Linear address options', function () {
     const linearAddressOptions = {
@@ -77,7 +76,6 @@ describe("defineDCCTurnoutCommand()", function () {
     })
   });
 })
-
 
 describe("defineServoTurnoutCommand()", function () {
   const options = {
