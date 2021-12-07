@@ -1,4 +1,4 @@
-import {makeCommandString} from "./utils.js";
+import { makeCommandString } from './utils.js'
 
 /**
  * https://dcc-ex.com/reference/software/command-reference.html#track-power-commands
@@ -6,18 +6,18 @@ import {makeCommandString} from "./utils.js";
  * @param {"MAIN" | "PROG" | "JOIN"} track
  * @return {string|{returnString: string, sendString: string, track, returnsKey: string, key}}
  */
-export function powerCommand({power, track}) {
-    return {
-        key: power,
-        track: track,
-        returnsKey: "p",
-        get sendString() {
-            const str = [this.key.toString(), this.track].filter(char => !!char).join(" ")
-            return makeCommandString(str)
-        },
-        get returnString() {
-            const returns = [`${this.returnsKey}${this.key}`, this.track].filter(char => !!char).join(" ")
-            return makeCommandString(returns)
-        }
+export function powerCommand ({ power, track }) {
+  return {
+    key: power,
+    track: track,
+    returnsKey: 'p',
+    get sendString () {
+      const str = [this.key.toString(), this.track].filter(char => !!char).join(' ')
+      return makeCommandString(str)
+    },
+    get returnString () {
+      const returns = [`${this.returnsKey}${this.key}`, this.track].filter(char => !!char).join(' ')
+      return makeCommandString(returns)
     }
+  }
 }
