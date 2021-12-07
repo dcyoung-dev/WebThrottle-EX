@@ -7,17 +7,17 @@ import {makeCommandString} from "./utils.js";
  * @return {string|{returnString: string, sendString: string, track, returnsKey: string, key}}
  */
 export function powerCommand({power, track}) {
-  return {
-    key: power,
-    track: track,
-    returnsKey: "p",
-    get sendString() {
-      const str = [this.key.toString(), this.track].filter(char => !!char).join(" ")
-      return makeCommandString(str)
-    },
-    get returnString() {
-      const returns = [`${this.returnsKey}${this.key}`, this.track].filter(char => !!char).join(" ")
-      return makeCommandString(returns)
+    return {
+        key: power,
+        track: track,
+        returnsKey: "p",
+        get sendString() {
+            const str = [this.key.toString(), this.track].filter(char => !!char).join(" ")
+            return makeCommandString(str)
+        },
+        get returnString() {
+            const returns = [`${this.returnsKey}${this.key}`, this.track].filter(char => !!char).join(" ")
+            return makeCommandString(returns)
+        }
     }
-  }
 }

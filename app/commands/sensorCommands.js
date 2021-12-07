@@ -9,25 +9,25 @@ import {makeCommandString} from "./utils.js";
  */
 export function defineSensorCommand({sensor, pin, pullUp}) {
     return {
-          key: "S",
-          returnsKey: "0",
-          sensor,
+        key: "S",
+        returnsKey: "0",
+        sensor,
         pin,
         pullUp,
-          get sendString() {
-              const attributes = [
-                  this.key,
-                  this.sensor,
-                  this.pin,
-                  this.pullUp,
-              ]
-              const str = attributes.join(" ")
-              return makeCommandString(str)
-          },
-          get returnString() {
-              return makeCommandString(this.returnsKey)
-          }
-      }
+        get sendString() {
+            const attributes = [
+                this.key,
+                this.sensor,
+                this.pin,
+                this.pullUp,
+            ]
+            const str = attributes.join(" ")
+            return makeCommandString(str)
+        },
+        get returnString() {
+            return makeCommandString(this.returnsKey)
+        }
+    }
 }
 
 /**
@@ -36,22 +36,22 @@ export function defineSensorCommand({sensor, pin, pullUp}) {
  * @returns {{readonly returnString: string, readonly sendString: string, turnout, returnsKey: string, key: string}|string}
  */
 export function deleteSensorCommand({sensor}) {
-  return {
-    key: "S",
-    returnsKey: "0",
-    sensor,
-    get sendString() {
-      const attributes = [
-        this.key,
-        this.sensor,
-      ]
-      const str = attributes.join(" ")
-      return makeCommandString(str)
-    },
-    get returnString() {
-      return makeCommandString(this.returnsKey)
+    return {
+        key: "S",
+        returnsKey: "0",
+        sensor,
+        get sendString() {
+            const attributes = [
+                this.key,
+                this.sensor,
+            ]
+            const str = attributes.join(" ")
+            return makeCommandString(str)
+        },
+        get returnString() {
+            return makeCommandString(this.returnsKey)
+        }
     }
-  }
 }
 
 /**
@@ -59,14 +59,14 @@ export function deleteSensorCommand({sensor}) {
  * @returns {string|{readonly returnString: string, readonly sendString: string, returnsKey: string, key: string}}
  */
 export function listSensorsCommand() {
-  return {
-    key: "S",
-    returnsKey: "X",
-    get sendString() {
-      return makeCommandString(this.key)
-    },
-    get returnString() {
-      return makeCommandString(this.returnsKey)
+    return {
+        key: "S",
+        returnsKey: "X",
+        get sendString() {
+            return makeCommandString(this.key)
+        },
+        get returnString() {
+            return makeCommandString(this.returnsKey)
+        }
     }
-  }
 }

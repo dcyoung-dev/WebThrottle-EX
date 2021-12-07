@@ -55,12 +55,12 @@ const powerOffJoin = {
     sendString: "<0 JOIN>"
 }
 const powerOnJoin = {
-  options: {
-    power: 1,
-    track: "JOIN"
-  },
-  returnString: "<p1 JOIN>",
-  sendString: "<1 JOIN>"
+    options: {
+        power: 1,
+        track: "JOIN"
+    },
+    returnString: "<p1 JOIN>",
+    sendString: "<1 JOIN>"
 }
 const powerTestCases = [
     powerOff,
