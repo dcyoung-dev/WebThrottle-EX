@@ -1,6 +1,6 @@
 import {
   writeAddressProgramming,
-  writeConfigurationBitMain,
+  writeConfigurationBitMain, writeConfigurationBitProgramming,
   writeConfigurationByteMain,
   writeConfigurationByteProgramming
 } from '../../../app/commands/decoderCommands'
@@ -88,6 +88,30 @@ describe('writeConfigurationByteProgramming()', function () {
 
   test(`returnString is '${returnString}'`, () => {
     const command = writeConfigurationByteProgramming(options)
+    const returnValue = command.returnString
+    expect(returnValue).toBe(returnString)
+  })
+})
+
+describe('writeConfigurationBitProgramming()', function () {
+  const options = {
+    cv: 14,
+    bit: 4,
+    value: 134,
+    callbackNum: 1024,
+    callbackSub: 3
+  }
+  const sendString = '<B 14 4 134 1024 3>'
+  const returnString = '<r 1024|3|14 4 134>'
+
+  test(`sendString is '${sendString}'`, () => {
+    const command = writeConfigurationBitProgramming(options)
+    const sendValue = command.sendString
+    expect(sendValue).toBe(sendString)
+  })
+
+  test(`returnString is '${returnString}'`, () => {
+    const command = writeConfigurationBitProgramming(options)
     const returnValue = command.returnString
     expect(returnValue).toBe(returnString)
   })
