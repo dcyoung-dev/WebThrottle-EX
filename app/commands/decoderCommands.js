@@ -89,3 +89,44 @@ export function writeAddressProgramming({address}) {
         }
     }
 }
+
+/**
+ * WRITE CV BYTE TO ENGINE DECODER ON PROGRAMMING TRACK
+ * https://dcc-ex.com/reference/software/command-reference.html#write-cv-byte-to-engine-decoder-on-programming-track
+ * @param {number} cv
+ * @param {number} value
+ * @param {number} callbackNum
+ * @param {number} callbackSub
+ * @returns {{readonly returnString: string, callbackNum, readonly sendString: string, cv, callbackSub, returnsKey: string, value, key: string}|string}
+ */
+export function writeConfigurationByteProgramming({cv, value, callbackNum, callbackSub}) {
+    return {
+        key: "W",
+        returnsKey: "r",
+        cv,
+        value,
+        callbackNum,
+        callbackSub,
+        get sendString() {
+            const attributes = [
+                this.key,
+                this.cv,
+                this.value,
+                this.callbackNum,
+                this.callbackSub
+            ]
+            const str = attributes.join(" ")
+            return makeCommandString(str)
+        },
+        get returnString() {
+            const combined = [this.callbackNum, this.callbackSub, this.cv].join("|")
+            const attributes = [
+                this.returnsKey,
+                combined,
+                this.value,
+            ]
+            const str = attributes.join(" ")
+            return makeCommandString(str)
+        }
+    }
+}
